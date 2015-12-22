@@ -14,15 +14,29 @@ public class ReaderWriterTutor {
      * method write of class BufferedWriter.
      * Then close the stream.
      */
+    File f = new File(FILES_TEST_PATH);
+
     public void writeToFile() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+            bw.write(TEST_LINE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Reads line from file by using method readLine()
      * of class BufferedReader and returns it
+     *
      * @return
      */
     public String readFromFile() {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(f))) {
+            String spr = bufferedReader.readLine();
+            return spr;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
