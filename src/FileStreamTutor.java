@@ -1,9 +1,6 @@
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +15,13 @@ public class FileStreamTutor {
      * For the writing, use the class FileOutputStream.
      */
     public void writeToFile() {
-
+        try (FileOutputStream outputStream = new FileOutputStream(FILES_TEST_PATH)) {
+            outputStream.write(TEST_LINE.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -26,6 +29,16 @@ public class FileStreamTutor {
      * @return
      */
     public String readFromFile() {
+        byte[] readArray = new byte[TEST_LINE.getBytes().length];
+        try (FileInputStream outputStream = new FileInputStream(FILES_TEST_PATH)){
+            outputStream.read(readArray);
+            String returning = new String(readArray);
+            return returning;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
