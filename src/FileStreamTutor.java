@@ -18,6 +18,7 @@ public class FileStreamTutor {
      * For the writing, use the class FileOutputStream.
      */
     public void writeToFile() {
+
     }
 
     /**

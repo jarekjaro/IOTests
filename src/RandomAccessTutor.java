@@ -17,7 +17,15 @@ public class RandomAccessTutor extends Tutor {
      * The method should open the file RandomAccessFile on path FILES_TEST_PATH
      * And write there the number 10 (type Integer), and then the string "test line"
      */
+    File f = new File(FILES_TEST_PATH);
+
     public void randomAccessWrite() {
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(f, "rw")) {
+            randomAccessFile.writeInt(10);
+            randomAccessFile.writeChars("test line");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -26,7 +34,14 @@ public class RandomAccessTutor extends Tutor {
      * jump to the fifth letter, read and return the string "line"
      */
     public String randomAccessRead() {
-        return null;
+        String ra ="";
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(f, "rw")) {
+            randomAccessFile.seek(14);
+            ra = randomAccessFile.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ra;
     }
 
     @Before
@@ -41,16 +56,16 @@ public class RandomAccessTutor extends Tutor {
     }
 
     @Test
-    public void testRandomAccess() throws UnsupportedEncodingException  {
+    public void testRandomAccess() throws UnsupportedEncodingException {
         randomAccessWrite();
         String s = null;
-        int i=-1;
+        int i = -1;
         try {
             RandomAccessFile f = new RandomAccessFile(FILES_TEST_PATH, "r");
             i = f.readInt();
             s = f.readLine();
             f.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assertEquals(i, 10);
