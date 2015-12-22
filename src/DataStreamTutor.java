@@ -1,13 +1,6 @@
 import static org.junit.Assert.*;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +15,15 @@ public class DataStreamTutor extends Tutor {
      * Also use BufferedOutputStream for buffering.
      * Then close the stream.
      */
+    File f = new File(FILES_TEST_PATH);
     public void writeToFile() {
+        try (BufferedOutputStream br = new BufferedOutputStream(new DataOutputStream(new FileOutputStream(f)))) {
+            br.write(TEST_LINE.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -30,6 +31,14 @@ public class DataStreamTutor extends Tutor {
      * @return
      */
     public String readFromFile() {
+        try (DataInputStream dis = new DataInputStream(new FileInputStream(f))) {
+            String s= dis.readLine();
+            return s;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
