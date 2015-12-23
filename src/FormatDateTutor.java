@@ -15,7 +15,7 @@ public class FormatDateTutor extends Tutor {
      * Use Formatter
      */
     public String getDateByFormatter(Date date) {
-        return null;
+        return String.format("%td.%tm.%ty",date,date,date);
     }
 
     /**
@@ -23,7 +23,7 @@ public class FormatDateTutor extends Tutor {
      * Use Formatter
      */
     public String getDateString(Date date) {
-        return null;
+        return String.format("%td of %tB, %tY",date,date,date);
     }
 
     /**
@@ -31,7 +31,8 @@ public class FormatDateTutor extends Tutor {
      * Use SimpleDateFormat
      */
     public String getDateBySimpleDateFormat(Date date) {
-        return null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
+        return sdf.format(date);
     }
 
     /**
@@ -39,6 +40,14 @@ public class FormatDateTutor extends Tutor {
      * Use SimpleDateFormat, method parse()
      */
     public Date parseDDMMYY(String s) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
+        Date d;
+        try{
+            d = sdf.parse(s);
+            return d;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
